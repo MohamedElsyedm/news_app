@@ -20,6 +20,22 @@ class AppTheme {
       ),
     ),
 
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: white),
+        ),
+        activeIndicatorBorder: BorderSide(color: white),
+      ),
+      textStyle: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
+    ),
+
     textTheme: TextTheme(
       titleLarge: TextStyle(
         fontSize: 24,
@@ -34,6 +50,11 @@ class AppTheme {
       titleSmall: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
+        color: white,
+      ),
+      labelLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
         color: white,
       ),
       labelSmall: TextStyle(
