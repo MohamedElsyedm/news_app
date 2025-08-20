@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/api/api_service.dart';
 import 'package:news_app/app_theme.dart';
-import 'package:news_app/models/source_model.dart';
+import 'package:news_app/models/news_response/news.dart';
+import 'package:news_app/models/sources_response/source.dart';
+import 'package:news_app/models/sources_response/sources_response.dart';
 import 'package:news_app/news/news_item.dart';
 import 'package:news_app/news/tab_item.dart';
+import 'package:news_app/widgets/error_indicator.dart';
+import 'package:news_app/widgets/loading_indicator.dart';
 
 class NewsView extends StatefulWidget {
   String categoryID;
@@ -14,49 +19,75 @@ class NewsView extends StatefulWidget {
 }
 
 class _NewsViewState extends State<NewsView> {
-  List<SourceModel> sources = List.generate(
-    10,
-    (index) => SourceModel(id: '$index', name: 'Source $index'),
-  );
   int currentIndex = 0;
+  // called once
+  late Future<SourcesResponse> futureSourcesResponse = APIService.getSources(
+    widget.categoryID,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DefaultTabController(
-          length: sources.length,
-          child: TabBar(
-            isScrollable: true,
-            dividerColor: Colors.transparent,
-            indicatorColor: AppTheme.white,
-            tabAlignment: TabAlignment.start,
-            labelPadding: EdgeInsetsDirectional.only(end: 16),
-            padding: EdgeInsetsDirectional.only(start: 16),
-            tabs: sources
-                .map(
-                  (source) => TabItem(
-                    source: source,
-                    isSelected: sources.indexOf(source) == currentIndex,
-                  ),
-                )
-                .toList(),
-            onTap: (index) {
-              if (currentIndex == index) return;
-              currentIndex = index;
-              setState(() {});
-            },
-          ),
-        ),
-        Expanded(
-          child: ListView.separated(
-            padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-            itemBuilder: (_, index) => NewsItem(),
-            separatorBuilder: (_, _) => SizedBox(height: 16),
-            itemCount: 10,
-          ),
-        ),
-      ],
+    return FutureBuilder(
+      future: futureSourcesResponse,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return LoadingIndicator();
+        } else if (snapshot.hasError || snapshot.data?.status != 'ok') {
+          return ErrorIndicator();
+        } else {
+          List<Source> sources = snapshot.data?.sources ?? [];
+          return Column(
+            children: [
+              DefaultTabController(
+                length: sources.length,
+                child: TabBar(
+                  isScrollable: true,
+                  dividerColor: Colors.transparent,
+                  indicatorColor: AppTheme.white,
+                  tabAlignment: TabAlignment.start,
+                  labelPadding: EdgeInsetsDirectional.only(end: 16),
+                  padding: EdgeInsetsDirectional.only(start: 16),
+                  tabs: sources
+                      .map(
+                        (source) => TabItem(
+                          source: source,
+                          isSelected: sources.indexOf(source) == currentIndex,
+                        ),
+                      )
+                      .toList(),
+                  onTap: (index) {
+                    if (currentIndex == index) return;
+                    currentIndex = index;
+                    setState(() {});
+                  },
+                ),
+              ),
+              Expanded(
+                child: FutureBuilder(
+                  future: APIService.getNews(sources[currentIndex].id!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return LoadingIndicator();
+                    } else if (snapshot.hasError ||
+                        snapshot.data?.status != 'ok') {
+                      return ErrorIndicator();
+                    } else {
+                      List<News> newsList = snapshot.data?.newsList ?? [];
+
+                      return ListView.separated(
+                        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+                        itemBuilder: (_, index) => NewsItem(newsList[index]),
+                        separatorBuilder: (_, _) => SizedBox(height: 16),
+                        itemCount: newsList.length,
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+      },
     );
   }
 }

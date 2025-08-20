@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/app_theme.dart';
+import 'package:news_app/models/news_response/news.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
-  const NewsItem({super.key});
+  NewsItem(this.news);
+
+  News news;
 
   @override
   Widget build(BuildContext context) {
-    final dateTime = DateTime.now().subtract(Duration(minutes: 20));
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.all(8),
@@ -19,24 +21,25 @@ class NewsItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(8),
-            child: Image.asset(
-              'assets/images/news.png',
+            child: Image.network(
+              news.urlToImage ??
+                  'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
               height: MediaQuery.sizeOf(context).height * 0.24,
               width: double.infinity,
               fit: BoxFit.fill,
             ),
           ),
           SizedBox(height: 10),
-          Text(
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-            style: textTheme.titleMedium,
-          ),
+          Text(news.title!, style: textTheme.titleMedium),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('By : Jon Haworth', style: textTheme.labelSmall),
-              Text(timeago.format(dateTime), style: textTheme.labelSmall),
+              Text('By: ${news.source?.name}', style: textTheme.labelSmall),
+              Text(
+                timeago.format(news.publishedAt!),
+                style: textTheme.labelSmall,
+              ),
             ],
           ),
         ],

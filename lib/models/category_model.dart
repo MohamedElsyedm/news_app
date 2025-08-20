@@ -13,43 +13,43 @@ class CategoryModel {
 
   static List<CategoryModel> categories = [
     CategoryModel(
-      id: '',
+      id: 'general',
       imgName: 'general',
       imgNameDark: 'general_dark',
       name: 'General',
     ),
     CategoryModel(
-      id: '',
+      id: 'technology',
       imgName: 'technology',
       imgNameDark: 'technology_dark',
       name: 'Technology',
     ),
     CategoryModel(
-      id: '',
+      id: 'sports',
       imgName: 'sports',
       imgNameDark: 'sports_dark',
       name: 'Sports',
     ),
     CategoryModel(
-      id: '',
+      id: 'science',
       imgName: 'science',
       imgNameDark: 'science_dark',
       name: 'Science',
     ),
     CategoryModel(
-      id: '',
+      id: 'health',
       imgName: 'helth',
       imgNameDark: 'helth_dark',
       name: 'Health',
     ),
     CategoryModel(
-      id: '',
+      id: 'entertainment',
       imgName: 'entertainment',
       imgNameDark: 'entertainment_dark',
       name: 'Entertainment',
     ),
     CategoryModel(
-      id: '',
+      id: 'business',
       imgName: 'business',
       imgNameDark: 'business_dark',
       name: 'Business',
