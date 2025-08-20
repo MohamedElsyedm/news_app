@@ -5,7 +5,7 @@ flutter_native_splash:
   branding_bottom_padding: 24
   color_dark: "#171717"
   image_dark: assets/images/splash_image_dark.png
-  branding_dark: assets/images/branding_light.png
+  branding_dark: assets/images/branding_dark.png
 
   android_12:
     # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
@@ -15,4 +15,4 @@ flutter_native_splash:
     branding_bottom_padding: 24
     color_dark: "#171717"
     image_dark: assets/images/android12splash_dark.png
-    branding_dark: assets/images/branding_light.png
+    branding_dark: assets/images/branding_dark.png

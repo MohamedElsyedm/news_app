@@ -8,7 +8,6 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData();
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: black,
-
     appBarTheme: AppBarTheme(
       backgroundColor: black,
       foregroundColor: white,
@@ -28,6 +27,7 @@ class AppTheme {
           borderSide: BorderSide(color: white),
         ),
         activeIndicatorBorder: BorderSide(color: white),
+        iconColor: white,
       ),
       textStyle: TextStyle(
         fontSize: 20,
