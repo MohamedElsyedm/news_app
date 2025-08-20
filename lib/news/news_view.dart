@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/api/api_service.dart';
 import 'package:news_app/app_theme.dart';
+import 'package:news_app/constants/constants_text.dart';
 import 'package:news_app/models/news_response/news.dart';
 import 'package:news_app/models/sources_response/source.dart';
 import 'package:news_app/models/sources_response/sources_response.dart';
@@ -8,11 +9,12 @@ import 'package:news_app/news/news_item.dart';
 import 'package:news_app/news/tab_item.dart';
 import 'package:news_app/widgets/error_indicator.dart';
 import 'package:news_app/widgets/loading_indicator.dart';
+import 'package:news_app/widgets/news_bottom_sheet.dart';
 
 class NewsView extends StatefulWidget {
   String categoryID;
 
-  NewsView(this.categoryID);
+  NewsView(this.categoryID, {super.key});
 
   @override
   State<NewsView> createState() => _NewsViewState();
@@ -76,7 +78,12 @@ class _NewsViewState extends State<NewsView> {
 
                       return ListView.separated(
                         padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-                        itemBuilder: (_, index) => NewsItem(newsList[index]),
+                        itemBuilder: (_, index) => GestureDetector(
+                          onTap: () {
+                            showNewsBottomSheet(newsList[index]);
+                          },
+                          child: NewsItem(newsList[index]),
+                        ),
                         separatorBuilder: (_, _) => SizedBox(height: 16),
                         itemCount: newsList.length,
                       );
@@ -87,6 +94,16 @@ class _NewsViewState extends State<NewsView> {
             ],
           );
         }
+      },
+    );
+  }
+
+  Future showNewsBottomSheet(News newsItem) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (_) {
+        return NewsBottomSheet(newsItem);
       },
     );
   }

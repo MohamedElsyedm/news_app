@@ -4,7 +4,7 @@ import 'package:news_app/models/news_response/news.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
-  NewsItem(this.news);
+  NewsItem(this.news, {super.key});
 
   News news;
 

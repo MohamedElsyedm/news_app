@@ -5,7 +5,7 @@ import 'package:news_app/models/category_model.dart';
 class CategoriesView extends StatelessWidget {
   void Function(CategoryModel) onCategorySelect;
 
-  CategoriesView({required this.onCategorySelect});
+  CategoriesView({super.key, required this.onCategorySelect});
 
   @override
   Widget build(BuildContext context) {

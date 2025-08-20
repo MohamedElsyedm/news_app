@@ -18,7 +18,29 @@ class AppTheme {
         color: white,
       ),
     ),
-
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: white,
+        foregroundColor: black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        textStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          // color: black,
+        ),
+      ),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusDirectional.only(
+          topStart: Radius.circular(16),
+          topEnd: Radius.circular(16),
+        ),
+      ),
+    ),
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: InputDecorationTheme(
         fillColor: white,

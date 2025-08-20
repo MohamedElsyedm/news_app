@@ -5,7 +5,7 @@ import 'package:news_app/app_theme.dart';
 class HomeDrawer extends StatefulWidget {
   VoidCallback goToHome;
 
-  HomeDrawer({required this.goToHome});
+  HomeDrawer({super.key, required this.goToHome});
 
   @override
   State<HomeDrawer> createState() => _HomeDrawerState();
