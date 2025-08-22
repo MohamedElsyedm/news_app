@@ -1,57 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:news_app/constants/constants_text.dart';
+
 class CategoryModel {
   String id;
   String imgName;
-  String imgNameDark;
   String name;
 
-  CategoryModel({
-    required this.id,
-    required this.imgName,
-    required this.imgNameDark,
-    required this.name,
-  });
+  CategoryModel({required this.id, required this.imgName, required this.name});
 
   static List<CategoryModel> categories = [
     CategoryModel(
       id: 'general',
-      imgName: 'general',
-      imgNameDark: 'general_dark',
+      imgName: ConstantsText.generalImage,
       name: 'General',
     ),
     CategoryModel(
       id: 'technology',
-      imgName: 'technology',
-      imgNameDark: 'technology_dark',
+      imgName: ConstantsText.technologyImage,
       name: 'Technology',
     ),
     CategoryModel(
       id: 'sports',
-      imgName: 'sports',
-      imgNameDark: 'sports_dark',
+      imgName: ConstantsText.sportsImage,
       name: 'Sports',
     ),
     CategoryModel(
       id: 'science',
-      imgName: 'science',
-      imgNameDark: 'science_dark',
+      imgName: ConstantsText.scienceImage,
       name: 'Science',
     ),
     CategoryModel(
       id: 'health',
-      imgName: 'helth',
-      imgNameDark: 'helth_dark',
+      imgName: ConstantsText.healthImage,
       name: 'Health',
     ),
     CategoryModel(
       id: 'entertainment',
-      imgName: 'entertainment',
-      imgNameDark: 'entertainment_dark',
+      imgName: ConstantsText.entertainmentImage,
       name: 'Entertainment',
     ),
     CategoryModel(
       id: 'business',
-      imgName: 'business',
-      imgNameDark: 'business_dark',
+      imgName: ConstantsText.businessImage,
       name: 'Business',
     ),
   ];

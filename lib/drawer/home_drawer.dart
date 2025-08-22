@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:news_app/app_theme.dart';
+import 'package:news_app/constants/constants_text.dart';
 
 class HomeDrawer extends StatefulWidget {
   VoidCallback goToHome;
@@ -39,7 +40,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             width: double.infinity,
             alignment: Alignment.center,
             child: Text(
-              'News App',
+              ConstantsText.newsApp,
               style: textTheme.titleLarge!.copyWith(
                 color: AppTheme.black,
                 fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     children: [
                       SvgPicture.asset('assets/icons/home.svg'),
                       SizedBox(width: 8),
-                      Text('Home', style: textTheme.labelLarge),
+                      Text(ConstantsText.home, style: textTheme.labelLarge),
                     ],
                   ),
                 ),
@@ -68,7 +69,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   children: [
                     SvgPicture.asset('assets/icons/theme.svg'),
                     SizedBox(width: 8),
-                    Text('Theme', style: textTheme.labelLarge),
+                    Text(ConstantsText.theme, style: textTheme.labelLarge),
                   ],
                 ),
                 Container(
@@ -111,7 +112,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   children: [
                     SvgPicture.asset('assets/icons/language.svg'),
                     SizedBox(width: 8),
-                    Text('Language', style: textTheme.labelLarge),
+                    Text(ConstantsText.language, style: textTheme.labelLarge),
                   ],
                 ),
                 Container(

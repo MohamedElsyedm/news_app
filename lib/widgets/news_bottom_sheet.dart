@@ -44,8 +44,7 @@ class _NewsBottomSheetState extends State<NewsBottomSheet> {
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(8),
             child: Image.network(
-              widget.newsItem.urlToImage ??
-                  'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+              widget.newsItem.urlToImage ?? ConstantsText.emptyImage,
               height: MediaQuery.sizeOf(context).height * 0.25,
               width: double.infinity,
               fit: BoxFit.fill,

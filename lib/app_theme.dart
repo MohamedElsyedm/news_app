@@ -58,6 +58,28 @@ class AppTheme {
       ),
     ),
 
+    inputDecorationTheme: InputDecorationTheme(
+      suffixIconColor: white,
+      prefixIconColor: white,
+      hintStyle: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: white,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: white),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: white),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: white),
+      ),
+    ),
+
     textTheme: TextTheme(
       titleLarge: TextStyle(
         fontSize: 24,

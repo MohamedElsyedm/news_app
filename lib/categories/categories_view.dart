@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/categories/category_item.dart';
+import 'package:news_app/constants/constants_text.dart';
 import 'package:news_app/models/category_model.dart';
 
 class CategoriesView extends StatelessWidget {
@@ -15,7 +16,7 @@ class CategoriesView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Good Morning \nHere is Some News For You',
+            ConstantsText.goodMorningText,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           Expanded(

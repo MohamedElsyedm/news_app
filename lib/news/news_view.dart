@@ -13,8 +13,9 @@ import 'package:news_app/widgets/news_bottom_sheet.dart';
 
 class NewsView extends StatefulWidget {
   String categoryID;
+  String searchValue;
 
-  NewsView(this.categoryID, {super.key});
+  NewsView(this.categoryID, this.searchValue, {super.key});
 
   @override
   State<NewsView> createState() => _NewsViewState();
@@ -66,7 +67,12 @@ class _NewsViewState extends State<NewsView> {
               ),
               Expanded(
                 child: FutureBuilder(
-                  future: APIService.getNews(sources[currentIndex].id!),
+                  future: APIService.getNews(
+                    sources[currentIndex].id!,
+                    '1',
+                    '5',
+                    widget.searchValue,
+                  ),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return LoadingIndicator();

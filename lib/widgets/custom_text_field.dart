@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:news_app/api/api_service.dart';
+import 'package:news_app/app_theme.dart';
+import 'package:news_app/constants/constants_text.dart';
+
+class CustomTextField extends StatelessWidget {
+  CustomTextField({
+    required this.onSearchClosed,
+    required this.onChanged,
+    required this.myController,
+  });
+
+  VoidCallback onSearchClosed;
+  Function(String value) onChanged;
+  TextEditingController myController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: TextField(
+        controller: myController,
+        onChanged: onChanged,
+        style: TextStyle(
+          color: AppTheme.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        decoration: InputDecoration(
+          hintText: ConstantsText.search,
+          prefixIcon: Icon(Icons.search_outlined, size: 24),
+          suffixIcon: IconButton(
+            onPressed: () {
+              onSearchClosed();
+              myController.clear();
+            },
+            icon: Icon(Icons.close_rounded, size: 24),
+          ),
+        ),
+        cursorColor: AppTheme.white,
+      ),
+    );
+  }
+}
