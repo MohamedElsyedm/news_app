@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/constants/constants_text.dart';
+import 'package:news_app/shared/constants/constants_text.dart';
 
 class CategoryModel {
   String id;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/categories/categories_view.dart';
-import 'package:news_app/constants/constants_text.dart';
-import 'package:news_app/drawer/home_drawer.dart';
-import 'package:news_app/models/category_model.dart';
-import 'package:news_app/news/news_view.dart';
-import 'package:news_app/widgets/custom_text_field.dart';
+import 'package:news_app/categories/view/widgets/categories_view.dart';
+import 'package:news_app/shared/constants/constants_text.dart';
+import 'package:news_app/home/view/widgets/home_drawer.dart';
+import 'package:news_app/categories/data/models/category_model.dart';
+import 'package:news_app/news/view/widgets/news_view.dart';
+import 'package:news_app/shared/widgets/custom_text_field.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routName = '/home';

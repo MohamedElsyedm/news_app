@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/app_theme.dart';
-import 'package:news_app/constants/constants_text.dart';
-import 'package:news_app/models/news_response/news.dart';
-import 'package:news_app/news/news_item.dart';
+import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/shared/constants/constants_text.dart';
+import 'package:news_app/news/data/models/news.dart';
+import 'package:news_app/news/view/widgets/news_item.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsBottomSheet extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'source.dart';
+import 'package:news_app/sources/data/models/source.dart';
 
 class News {
   Source? source;
@@ -35,15 +35,4 @@ class News {
         : DateTime.parse(json['publishedAt'] as String),
     content: json['content'] as String?,
   );
-
-  Map<String, dynamic> toJson() => {
-    'source': source?.toJson(),
-    'author': author,
-    'title': title,
-    'description': description,
-    'url': url,
-    'urlToImage': urlToImage,
-    'publishedAt': publishedAt?.toIso8601String(),
-    'content': content,
-  };
 }
