@@ -1,15 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:news_app/l10n/app_localizations.dart';
+import 'package:news_app/shared/settings_provider.dart';
+
 class ConstantsText {
-  static bool isDark = true;
-  static const String viewFullArticle = 'View Full Article';
-  static const String home = 'Home';
-  static const String search = 'Search';
-  static const String newsApp = 'News App';
-  static const String theme = 'Theme';
-  static const String language = 'Language';
-  static const String by = 'By:';
-  static const String defaultErrorMessage = 'SomeThing went wrong';
-  static const String goodMorningText =
-      'Good Morning \nHere is Some News For You';
+  static bool isDark = SettingsProvider().themeMode == ThemeMode.dark;
   static String generalImage = isDark ? 'general' : 'general_dark';
   static String technologyImage = isDark ? 'technology' : 'technology_dark';
   static String sportsImage = isDark ? 'sports' : 'sports_dark';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
 import 'package:news_app/news/data/models/news.dart';
@@ -65,7 +66,7 @@ class _NewsBottomSheetState extends State<NewsBottomSheet> {
                 _launched = _launchInAppWithBrowserOptions(_url);
               });
             },
-            child: Text(ConstantsText.viewFullArticle),
+            child: Text(AppLocalizations.of(context)!.viewFullArticle),
           ),
         ],
       ),
