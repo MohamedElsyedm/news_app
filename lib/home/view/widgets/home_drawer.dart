@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
+import 'package:news_app/shared/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
   VoidCallback goToHome;
@@ -17,16 +20,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Language(code: 'en', name: 'English'),
     Language(code: 'ar', name: 'العربية'),
   ];
-  List<ThemeClass> themeModes = [
-    ThemeClass(name: 'Dark', themeMode: ThemeMode.dark),
-    ThemeClass(name: 'Light', themeMode: ThemeMode.light),
-  ];
-
-  String languageCode = 'ar';
-  String themeName = 'Dark';
 
   @override
   Widget build(BuildContext context) {
+    SettingsProvider settingsProvider = Provider.of<SettingsProvider>(context);
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     TextTheme textTheme = Theme.of(context).textTheme;
     Size screenSize = MediaQuery.sizeOf(context);
     return Container(
@@ -40,7 +39,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             width: double.infinity,
             alignment: Alignment.center,
             child: Text(
-              ConstantsText.newsApp,
+              appLocalizations.newsApp,
               style: textTheme.titleLarge!.copyWith(
                 color: AppTheme.black,
                 fontWeight: FontWeight.bold,
@@ -60,7 +59,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     children: [
                       SvgPicture.asset('assets/icons/home.svg'),
                       SizedBox(width: 8),
-                      Text(ConstantsText.home, style: textTheme.labelLarge),
+                      Text(appLocalizations.home, style: textTheme.labelLarge),
                     ],
                   ),
                 ),
@@ -69,7 +68,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   children: [
                     SvgPicture.asset('assets/icons/theme.svg'),
                     SizedBox(width: 8),
-                    Text(ConstantsText.theme, style: textTheme.labelLarge),
+                    Text(appLocalizations.theme, style: textTheme.labelLarge),
                   ],
                 ),
                 Container(
@@ -85,24 +84,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     iconEnabledColor: AppTheme.white,
                     iconDisabledColor: AppTheme.white,
                     isExpanded: true,
-                    value: themeName,
-                    items: themeModes
-                        .map(
-                          (theme) => DropdownMenuItem(
-                            alignment: Alignment.center,
-                            value: theme.name,
-                            child: Text(
-                              theme.name,
-                              style: textTheme.labelLarge!.copyWith(
-                                color: AppTheme.white,
-                              ),
-                            ),
+                    value: settingsProvider.themeCode,
+                    items: [
+                      DropdownMenuItem(
+                        alignment: Alignment.center,
+                        value: 'D',
+                        child: Text(
+                          'Dark',
+                          style: textTheme.labelLarge!.copyWith(
+                            color: AppTheme.white,
                           ),
-                        )
-                        .toList(),
-                    onChanged: (theme) {
-                      if (theme == null) return;
-                      changeTheme(theme.toString());
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        alignment: Alignment.center,
+                        value: 'L',
+                        child: Text(
+                          'Light',
+                          style: textTheme.labelLarge!.copyWith(
+                            color: AppTheme.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value == null) return;
+                      settingsProvider.changeTheme(value);
+                      print(value);
                     },
                   ),
                 ),
@@ -112,7 +120,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   children: [
                     SvgPicture.asset('assets/icons/language.svg'),
                     SizedBox(width: 8),
-                    Text(ConstantsText.language, style: textTheme.labelLarge),
+                    Text(
+                      appLocalizations.language,
+                      style: textTheme.labelLarge,
+                    ),
                   ],
                 ),
                 Container(
@@ -128,14 +139,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     iconEnabledColor: AppTheme.white,
                     iconDisabledColor: AppTheme.white,
                     isExpanded: true,
-                    value: languageCode,
+                    value: settingsProvider.languageCode,
                     items: languages
                         .map(
-                          (Language) => DropdownMenuItem(
+                          (language) => DropdownMenuItem(
                             alignment: Alignment.center,
-                            value: Language.code,
+                            value: language.code,
                             child: Text(
-                              Language.name,
+                              language.name,
                               style: textTheme.labelLarge!.copyWith(
                                 color: AppTheme.white,
                               ),
@@ -145,7 +156,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         .toList(),
                     onChanged: (langCode) {
                       if (langCode == null) return;
-                      changeLanguage(langCode.toString());
+                      settingsProvider.changeLanguage(langCode);
                     },
                   ),
                 ),
@@ -156,18 +167,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
     );
   }
-
-  void changeLanguage(String language) {
-    if (languageCode == language) return;
-    languageCode = language;
-    setState(() {});
-  }
-
-  void changeTheme(String theme) {
-    if (themeName == theme) return;
-    themeName = theme;
-    setState(() {});
-  }
 }
 
 class Language {
@@ -175,11 +174,4 @@ class Language {
   String name;
 
   Language({required this.code, required this.name});
-}
-
-class ThemeClass {
-  String name;
-  ThemeMode themeMode;
-
-  ThemeClass({required this.name, required this.themeMode});
 }
