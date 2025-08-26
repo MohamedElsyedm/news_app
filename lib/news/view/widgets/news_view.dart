@@ -23,8 +23,10 @@ class NewsView extends StatefulWidget {
 
 class _NewsViewState extends State<NewsView> {
   int currentIndex = 0;
+  bool _isLoading = false;
   SourcesViewModel sourcesViewModel = SourcesViewModel();
   NewsViewModel newsViewModel = NewsViewModel();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -34,6 +36,8 @@ class _NewsViewState extends State<NewsView> {
 
   @override
   Widget build(BuildContext context) {
+    List<News> allNewsList = [];
+    int currentPage = 1;
     return ChangeNotifierProvider(
       create: (context) => sourcesViewModel,
       child: Consumer<SourcesViewModel>(
@@ -44,7 +48,12 @@ class _NewsViewState extends State<NewsView> {
             return ErrorIndicator(viewModel.errormessage!);
           } else {
             List<Source> sources = viewModel.sources;
-            newsViewModel.getNews(viewModel.sources[currentIndex].id!);
+            newsViewModel.getNews(
+              viewModel.sources[currentIndex].id!,
+              currentPage.toString(),
+              widget.searchValue,
+            );
+
             return Column(
               children: [
                 DefaultTabController(
@@ -81,22 +90,49 @@ class _NewsViewState extends State<NewsView> {
                         } else if (newsView.errorMessage != null) {
                           return ErrorIndicator(newsView.errorMessage!);
                         } else {
-                          List<News> newsList = newsView.newsList;
-
+                          allNewsList.addAll(newsView.newsList);
+                          _scrollController.addListener(() {
+                            // Check if the user has scrolled to the end of the list
+                            if (_scrollController.position.pixels ==
+                                _scrollController.position.maxScrollExtent) {
+                              newsViewModel.getNews(
+                                viewModel.sources[currentIndex].id!,
+                                (currentPage++).toString(),
+                                widget.searchValue,
+                              );
+                              _isLoading = true;
+                            }
+                          });
+                          _isLoading = false;
                           return ListView.separated(
+                            controller: _scrollController,
                             padding: EdgeInsets.only(
                               top: 16,
                               left: 16,
                               right: 16,
                             ),
-                            itemBuilder: (_, index) => GestureDetector(
-                              onTap: () {
-                                showNewsBottomSheet(newsList[index]);
-                              },
-                              child: NewsItem(newsList[index]),
-                            ),
+                            itemBuilder: (_, index) {
+                              if (index < allNewsList.length) {
+                                // Display the list item
+                                return GestureDetector(
+                                  onTap: () {
+                                    showNewsBottomSheet(allNewsList[index]);
+                                  },
+                                  child: NewsItem(allNewsList[index]),
+                                );
+                              } else {
+                                // Display the loading indicator at the end
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              }
+                            },
                             separatorBuilder: (_, _) => SizedBox(height: 16),
-                            itemCount: newsList.length,
+                            itemCount:
+                                allNewsList.length + (_isLoading ? 1 : 0),
                           );
                         }
                       },

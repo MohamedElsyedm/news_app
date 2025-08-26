@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
 
@@ -26,7 +27,7 @@ class CustomTextField extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
-          hintText: ConstantsText.search,
+          hintText: AppLocalizations.of(context)!.search,
           prefixIcon: Icon(Icons.search_outlined, size: 24),
           suffixIcon: IconButton(
             onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/categories/view/widgets/categories_view.dart';
+import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
 import 'package:news_app/home/view/widgets/home_drawer.dart';
 import 'package:news_app/categories/data/models/category_model.dart';
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           selectedCategory == null
-              ? ConstantsText.home
+              ? AppLocalizations.of(context)!.home
               : selectedCategory!.name,
         ),
         actions: [
@@ -41,18 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: HomeDrawer(goToHome: restSelectedCategory),
       body: Column(
         children: [
-          isSearch
-              ? CustomTextField(
-                  myController: controller,
-                  onSearchClosed: changeSearchMode,
-                  onChanged: (value) {
-                    setState(() {
-                      controller.text = value;
-                    });
-                  },
-                )
-              : SizedBox(),
-
+          Visibility(
+            visible: isSearch,
+            child: CustomTextField(
+              myController: controller,
+              onSearchClosed: changeSearchMode,
+              onChanged: (value) {
+                setState(() {
+                  controller.text = value;
+                });
+              },
+            ),
+          ),
           selectedCategory == null
               ? Expanded(
                   child: CategoriesView(onCategorySelect: onCategorySelected),

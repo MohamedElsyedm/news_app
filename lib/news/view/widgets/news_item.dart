@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
 import 'package:news_app/news/data/models/news.dart';
@@ -36,7 +37,7 @@ class NewsItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${ConstantsText.by} ${news.source?.name}',
+                '${AppLocalizations.of(context)!.by} ${news.source?.name}',
                 style: textTheme.labelSmall,
               ),
               Text(
