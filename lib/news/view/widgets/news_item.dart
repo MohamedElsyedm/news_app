@@ -3,6 +3,7 @@ import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/constants/constants_text.dart';
 import 'package:news_app/news/data/models/news.dart';
+import 'package:news_app/shared/settings_provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
@@ -17,7 +18,11 @@ class NewsItem extends StatelessWidget {
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.white),
+        border: Border.all(
+          color: SettingsProvider().themeMode == ThemeMode.dark
+              ? AppTheme.white
+              : AppTheme.black,
+        ),
       ),
       child: Column(
         children: [

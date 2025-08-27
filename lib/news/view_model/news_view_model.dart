@@ -15,12 +15,16 @@ class NewsViewModel with ChangeNotifier {
       NewsResponse response = await dataSource.getNews(
         sourceId,
         page,
-
         searchValue,
       );
       if (response.status == 'ok' && response.newsList != null) {
-        newsList = response.newsList!;
-        print(newsList.length);
+        if (response.newsList!.isEmpty) {
+          print('List is Empty');
+          return;
+        } else {
+          newsList = response.newsList!;
+          print(newsList.length);
+        }
       } else {
         errorMessage = 'Failed To Get News';
       }

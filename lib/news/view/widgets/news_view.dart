@@ -53,7 +53,6 @@ class _NewsViewState extends State<NewsView> {
               currentPage.toString(),
               widget.searchValue,
             );
-
             return Column(
               children: [
                 DefaultTabController(
@@ -92,15 +91,17 @@ class _NewsViewState extends State<NewsView> {
                         } else {
                           allNewsList.addAll(newsView.newsList);
                           _scrollController.addListener(() {
-                            // Check if the user has scrolled to the end of the list
                             if (_scrollController.position.pixels ==
                                 _scrollController.position.maxScrollExtent) {
-                              newsViewModel.getNews(
-                                viewModel.sources[currentIndex].id!,
-                                (currentPage++).toString(),
-                                widget.searchValue,
-                              );
                               _isLoading = true;
+                              Future.delayed(Duration(seconds: 10), () {
+                                if (newsViewModel.newsList.isEmpty) return;
+                                newsViewModel.getNews(
+                                  viewModel.sources[currentIndex].id!,
+                                  (currentPage++).toString(),
+                                  widget.searchValue,
+                                );
+                              });
                             }
                           });
                           _isLoading = false;
@@ -122,17 +123,25 @@ class _NewsViewState extends State<NewsView> {
                                 );
                               } else {
                                 // Display the loading indicator at the end
-                                return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                );
+                                return newsViewModel.newsList.isEmpty
+                                    ? Text(
+                                        'End Of List',
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge,
+                                      )
+                                    : const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 20.0,
+                                        ),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
                               }
                             },
                             separatorBuilder: (_, _) => SizedBox(height: 16),
-                            itemCount:
-                                allNewsList.length + (_isLoading ? 1 : 0),
+                            itemCount: allNewsList.length + 1,
                           );
                         }
                       },
@@ -157,11 +166,3 @@ class _NewsViewState extends State<NewsView> {
     );
   }
 }
-/*
- future: APIService.getNews(
-                        sources[currentIndex].id!,
-                        '1',
-                        '5',
-                        widget.searchValue,
-                      ),
- */
