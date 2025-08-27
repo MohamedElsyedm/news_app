@@ -53,7 +53,6 @@ class _NewsViewState extends State<NewsView> {
               currentPage.toString(),
               widget.searchValue,
             );
-
             return Column(
               children: [
                 DefaultTabController(
@@ -92,18 +91,20 @@ class _NewsViewState extends State<NewsView> {
                         } else {
                           allNewsList.addAll(newsView.newsList);
                           _scrollController.addListener(() {
-                            // Check if the user has scrolled to the end of the list
                             if (_scrollController.position.pixels ==
                                 _scrollController.position.maxScrollExtent) {
-                              newsViewModel.getNews(
-                                viewModel.sources[currentIndex].id!,
-                                (currentPage++).toString(),
-                                widget.searchValue,
-                              );
                               _isLoading = true;
+                              Future.delayed(Duration(seconds: 10), () {
+                                if (newsViewModel.newsList.isEmpty) return;
+                                newsViewModel.getNews(
+                                  viewModel.sources[currentIndex].id!,
+                                  (currentPage++).toString(),
+                                  widget.searchValue,
+                                );
+                                _isLoading = false;
+                              });
                             }
                           });
-                          _isLoading = false;
                           return ListView.separated(
                             controller: _scrollController,
                             padding: EdgeInsets.only(
@@ -157,11 +158,3 @@ class _NewsViewState extends State<NewsView> {
     );
   }
 }
-/*
- future: APIService.getNews(
-                        sources[currentIndex].id!,
-                        '1',
-                        '5',
-                        widget.searchValue,
-                      ),
- */

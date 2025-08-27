@@ -17,6 +17,7 @@ class SourcesViewModel with ChangeNotifier {
         sources = response.sources!;
       } else {
         errormessage = 'Failed to get sources';
+        print(response.status);
       }
     } catch (error) {
       errormessage = error.toString();
