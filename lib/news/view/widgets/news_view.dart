@@ -89,19 +89,17 @@ class _NewsViewState extends State<NewsView> {
                         } else if (newsView.errorMessage != null) {
                           return ErrorIndicator(newsView.errorMessage!);
                         } else {
+                          _isLoading = true;
                           allNewsList.addAll(newsView.newsList);
                           _scrollController.addListener(() {
                             if (_scrollController.position.pixels ==
                                 _scrollController.position.maxScrollExtent) {
-                              _isLoading = true;
-                              Future.delayed(Duration(seconds: 10), () {
-                                if (newsViewModel.newsList.isEmpty) return;
-                                newsViewModel.getNews(
-                                  viewModel.sources[currentIndex].id!,
-                                  (currentPage++).toString(),
-                                  widget.searchValue,
-                                );
-                              });
+                              if (newsViewModel.newsList.isEmpty) return;
+                              newsViewModel.getNews(
+                                viewModel.sources[currentIndex].id!,
+                                (currentPage++).toString(),
+                                widget.searchValue,
+                              );
                             }
                           });
                           _isLoading = false;
