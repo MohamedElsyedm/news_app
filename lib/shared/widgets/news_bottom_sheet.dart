@@ -35,7 +35,7 @@ class _NewsBottomSheetState extends State<NewsBottomSheet> {
       margin: EdgeInsets.all(16),
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: AppTheme.black,
+        color: ConstantsText.isDark ? AppTheme.black : AppTheme.white,
         borderRadius: BorderRadius.circular(16),
       ),
       clipBehavior: Clip.antiAlias,
