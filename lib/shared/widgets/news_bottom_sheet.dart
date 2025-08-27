@@ -63,7 +63,9 @@ class _NewsBottomSheetState extends State<NewsBottomSheet> {
             ),
             onPressed: () {
               setState(() {
-                _launched = _launchInAppWithBrowserOptions(_url);
+                _launched = _launchInAppWithBrowserOptions(_url).then((_) {
+                  Navigator.pop(context);
+                });
               });
             },
             child: Text(AppLocalizations.of(context)!.viewFullArticle),
