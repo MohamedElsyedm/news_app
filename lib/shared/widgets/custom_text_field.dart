@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/l10n/app_localizations.dart';
 import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/shared/constants/constants_text.dart';
 
 class CustomTextField extends StatelessWidget {
   CustomTextField({
@@ -20,6 +21,9 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: myController,
         onChanged: onChanged,
+        style: TextStyle(
+          color: ConstantsText.isDark ? AppTheme.white : AppTheme.black,
+        ),
         decoration: InputDecoration(
           hintText: AppLocalizations.of(context)!.search,
           prefixIcon: Icon(Icons.search_outlined, size: 24),
@@ -31,7 +35,7 @@ class CustomTextField extends StatelessWidget {
             icon: Icon(Icons.close_rounded, size: 24),
           ),
         ),
-        cursorColor: AppTheme.white,
+        cursorColor: ConstantsText.isDark ? AppTheme.white : AppTheme.black,
       ),
     );
   }

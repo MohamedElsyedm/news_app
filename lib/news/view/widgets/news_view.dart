@@ -122,11 +122,13 @@ class _NewsViewState extends State<NewsView> {
                               } else {
                                 // Display the loading indicator at the end
                                 return newsViewModel.newsList.isEmpty
-                                    ? Text(
-                                        'End Of List',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.titleLarge,
+                                    ? Center(
+                                        child: Text(
+                                          'End Of List',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleLarge,
+                                        ),
                                       )
                                     : const Padding(
                                         padding: EdgeInsets.symmetric(

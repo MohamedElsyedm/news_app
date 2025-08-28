@@ -11,6 +11,10 @@ class NewsViewModel with ChangeNotifier {
 
   Future<void> getNews(String sourceId, String page, String searchValue) async {
     isLoading = true;
+    if (newsList.isEmpty && page == 2.toString()) {
+      print('List is Empty');
+      return;
+    }
     try {
       NewsResponse response = await dataSource.getNews(
         sourceId,
@@ -18,13 +22,8 @@ class NewsViewModel with ChangeNotifier {
         searchValue,
       );
       if (response.status == 'ok' && response.newsList != null) {
-        if (response.newsList!.isEmpty) {
-          print('List is Empty');
-          return;
-        } else {
-          newsList = response.newsList!;
-          print(newsList.length);
-        }
+        newsList = response.newsList!;
+        print(newsList.length);
       } else {
         errorMessage = 'Failed To Get News';
       }
