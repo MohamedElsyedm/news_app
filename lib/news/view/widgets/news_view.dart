@@ -89,12 +89,12 @@ class _NewsViewState extends State<NewsView> {
                         } else if (newsView.errorMessage != null) {
                           return ErrorIndicator(newsView.errorMessage!);
                         } else {
-                          _isLoading = true;
                           allNewsList.addAll(newsView.newsList);
                           _scrollController.addListener(() {
+                            // Check if the user has scrolled to the end of the list
                             if (_scrollController.position.pixels ==
                                 _scrollController.position.maxScrollExtent) {
-                              if (newsViewModel.newsList.isEmpty) return;
+                              _isLoading = true;
                               newsViewModel.getNews(
                                 viewModel.sources[currentIndex].id!,
                                 (currentPage++).toString(),
